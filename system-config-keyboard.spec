@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.5
-Release: 2
+Release: 3
 URL: http://fedora.redhat.com/projects/config-tools
 License: GPL
 ExclusiveOS: Linux
@@ -44,7 +44,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 touch --no-create %{_datadir}/icons/hicolor
-if [-x /usr/bin/gtk-update-icon-cache ]; then
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
   gtk-update-icon-cache %{_datadir}/icons/hicolor
 fi
 
@@ -55,7 +55,7 @@ fi
 
 %postun
 touch --no-create %{_datadir}/icons/hicolor
-if [-x /usr/bin/gtk-update-icon-cache ]; then
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
   gtk-update-icon-cache %{_datadir}/icons/hicolor
 fi
 
@@ -75,6 +75,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Mon Mar 28 2005 Christopher Aillon <caillon@redhat.com>
+- rebuilt
+
 * Fri Mar 25 2005 Christopher Aillon <caillon@redhat.com> 1.2.5-2
 - Update the GTK+ theme icon cache on (un)install
 

@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
-Version: 1.2.1
-Release: 2
+Version: 1.2.2
+Release: 1
 URL: http://fedora.redhat.com/projects/config-tools
 License: GPL
 ExclusiveOS: Linux
@@ -11,6 +11,7 @@ BuildArch: noarch
 Source0: %{name}-%{version}.tar.bz2
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
+BuildRequires: intltool
 Obsoletes: kbdconfig
 Obsoletes: redhat-config-keyboard
 ExcludeArch: s390 s390x
@@ -61,6 +62,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Tue Sep 07 2004 Paul Nasrat <pnasrat@redhat.com> 1.2.2-1
+- i18n desktop
+
 * Thu Apr  8 2004 Brent Fox <bfox@redhat.com> 1.2.1-2
 - fix icon path (bug #120175)
 

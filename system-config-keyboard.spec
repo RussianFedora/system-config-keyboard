@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.1
-Release: 1
+Release: 1.1
 URL: http://fedora.redhat.com/projects/config-tools
 License: GPL
 ExclusiveOS: Linux
@@ -60,6 +60,9 @@ fi
 %attr(0644,root,root) %config /etc/pam.d/system-config-keyboard
 
 %changelog
+* Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Wed Nov 12 2003 Brent Fox <bfox@redhat.com> 1.2.1-1
 - renamed from redhat-config-keyboard
 - add Obsoletes for redhat-config-keyboard

@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.1
-Release: 1.1
+Release: 2
 URL: http://fedora.redhat.com/projects/config-tools
 License: GPL
 ExclusiveOS: Linux
@@ -58,10 +58,11 @@ fi
 %attr(0644,root,root) %{_datadir}/applications/system-config-keyboard.desktop
 %attr(0644,root,root) %config /etc/security/console.apps/system-config-keyboard
 %attr(0644,root,root) %config /etc/pam.d/system-config-keyboard
+%attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
-* Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
-- rebuilt
+* Thu Apr  8 2004 Brent Fox <bfox@redhat.com> 1.2.1-2
+- fix icon path (bug #120175)
 
 * Wed Nov 12 2003 Brent Fox <bfox@redhat.com> 1.2.1-1
 - renamed from redhat-config-keyboard

@@ -1,6 +1,6 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
-Version: 1.2.3
+Version: 1.2.4
 Release: 1
 URL: http://fedora.redhat.com/projects/config-tools
 License: GPL
@@ -62,6 +62,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Fri Oct 01 2004 Paul Nasrat <pnasrat@redhat.com> - 1.2.4-1
+- Translations 
+
 * Wed Sep 22 2004 Jeremy Katz <katzj@redhat.com> - 1.2.3-1
 - fix traceback when using treeview typeahead (#133178)
 

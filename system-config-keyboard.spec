@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.6
-Release: 1
+Release: 2
 URL: http://fedora.redhat.com/projects/config-tools
 License: GPL
 ExclusiveOS: Linux
@@ -45,7 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 %post
 touch --no-create %{_datadir}/icons/hicolor
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  gtk-update-icon-cache %{_datadir}/icons/hicolor
+  gtk-update-icon-cache -q %{_datadir}/icons/hicolor
 fi
 
 %preun
@@ -56,7 +56,7 @@ fi
 %postun
 touch --no-create %{_datadir}/icons/hicolor
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  gtk-update-icon-cache %{_datadir}/icons/hicolor
+  gtk-update-icon-cache -q %{_datadir}/icons/hicolor
 fi
 
 %files -f %{name}.lang
@@ -75,6 +75,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Wed Apr 27 2005 Jeremy Katz <katzj@redhat.com> - 1.2.6-2
+- silence %%post
+
 * Fri Apr 01 2005 Paul Nasrat <pnasrat@redhat.com> - 1.2.6-1
 - Translations
 - Gtk deprecations

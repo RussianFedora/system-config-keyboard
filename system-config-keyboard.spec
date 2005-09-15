@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.6
-Release: 2
+Release: 3
 URL: http://fedora.redhat.com/projects/config-tools
 License: GPL
 ExclusiveOS: Linux
@@ -14,7 +14,7 @@ BuildRequires: gettext
 BuildRequires: intltool
 Obsoletes: kbdconfig
 Obsoletes: redhat-config-keyboard
-ExcludeArch: s390 s390x
+ExcludeArch: s390 s390x ppc64
 Requires: python2
 Requires: usermode >= 1.36
 Requires: rhpl >= 0.53
@@ -75,6 +75,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Thu Sep 15 2005 Jeremy Katz <katzj@redhat.com> - 1.2.6-3
+- exclude ppc64 since we don't have X stuff there
+
 * Wed Apr 27 2005 Jeremy Katz <katzj@redhat.com> - 1.2.6-2
 - silence %%post
 

@@ -68,7 +68,7 @@ fi
 /usr/share/system-config-keyboard/*
 %dir /usr/share/firstboot/
 %dir /usr/share/firstboot/modules
-/usr/share/firstboot/modules/keyboard.py
+/usr/share/firstboot/modules/*
 %attr(0644,root,root) %{_datadir}/applications/system-config-keyboard.desktop
 %attr(0644,root,root) %config /etc/security/console.apps/system-config-keyboard
 %attr(0644,root,root) %config /etc/pam.d/system-config-keyboard
@@ -78,6 +78,7 @@ fi
 * Thu Oct 20 2005 Paul Nasrat <pnasrat@redhat.com> - 1.2.7-1
 - Update pam file (#170630)
 - New firstboot module
+- Compiled python
 
 * Thu Sep 15 2005 Jeremy Katz <katzj@redhat.com> - 1.2.6-3
 - exclude ppc64 since we don't have X stuff there

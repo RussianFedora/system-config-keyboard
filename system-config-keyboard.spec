@@ -1,6 +1,6 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
-Version: 1.2.8
+Version: 1.2.9
 Release: 1
 URL: http://fedora.redhat.com/projects/config-tools
 License: GPL
@@ -70,6 +70,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Wed Oct 04 2006 Chris Lumens <clumens@redhat.com> - 1.2.9-1
+- Fix type ahead order to use displayed names (#209218).
+
 * Mon Oct  2 2006 Jeremy Katz <katzj@redhat.com> - 1.2.8-1
 - update translations
 

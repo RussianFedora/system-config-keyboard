@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
-Version: 1.2.10
-Release: 1
+Version: 1.2.11
+Release: 1%{?dist}
 URL: http://fedora.redhat.com/projects/config-tools
 License: GPL
 ExclusiveOS: Linux
@@ -19,6 +19,7 @@ Requires: python2
 Requires: usermode >= 1.36
 Requires: rhpl >= 0.53
 Requires: pyxf86config
+Requires: firstboot
 Prereq: gtk2 >= 2.6
 
 %description
@@ -70,6 +71,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Tue Nov 21 2006 Paul Nasrat <pnasrat@redhat.com> - 1.2.11-1
+- Update translations
+
 * Fri Oct 13 2006 Bill Nottingham <notting@redhat.com> - 1.2.10-1
 - use valid charset for translations (#210720)
 

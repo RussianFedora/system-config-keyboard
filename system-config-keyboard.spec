@@ -35,8 +35,7 @@ desktop-file-install --vendor system --delete-original      \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications             \
   --add-category Application \
   --add-category SystemSetup \
-  --add-category X-Red-Hat-Base          \
-  $RPM_BUILD_ROOT%{_datadir}/applications/system-config-keyboard.desktop
+   $RPM_BUILD_ROOT%{_datadir}/applications/system-config-keyboard.desktop
 
 %find_lang %name
 
@@ -73,6 +72,7 @@ fi
 %changelog
 * Tue Aug 21 2007 Pete Graner <pgraner@redhat.com> - 1.2.11-2
 - Updated License tag per Fedora Licenseing Guidlines.
+- Removed  --add-category X-Red-Hat-Base to fix build errors
 
 * Tue Nov 21 2006 Paul Nasrat <pnasrat@redhat.com> - 1.2.11-1
 - Update translations

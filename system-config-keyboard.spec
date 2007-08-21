@@ -33,7 +33,8 @@ the user to change the default keyboard of the system.
 make INSTROOT=$RPM_BUILD_ROOT install
 desktop-file-install --vendor system --delete-original      \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications             \
-  --add-category Application \
+  --add-category X-Red-Hat-Base \
+  --add-category Settings \
   --add-category SystemSetup \
    $RPM_BUILD_ROOT%{_datadir}/applications/system-config-keyboard.desktop
 

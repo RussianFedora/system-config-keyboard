@@ -35,7 +35,8 @@ desktop-file-install --vendor system --delete-original      \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications             \
   --add-category X-Red-Hat-Base \
   --add-category Settings \
-  --add-category SystemSetup \
+  --add-category System \
+  --add-category HardwareSettings \
    $RPM_BUILD_ROOT%{_datadir}/applications/system-config-keyboard.desktop
 
 %find_lang %name

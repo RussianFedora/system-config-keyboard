@@ -1,8 +1,8 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.11
-Release: 3%{?dist}
-URL: http://fedora.redhat.com/projects/config-tools
+Release: 4%{?dist}
+URL: http://fedoraproject.org/wiki/SystemConfig/keyboard
 License: GPL+
 ExclusiveOS: Linux
 Group: System Environment/Base
@@ -20,7 +20,9 @@ Requires: usermode >= 1.36
 Requires: rhpl >= 0.53
 Requires: pyxf86config
 Requires: firstboot
+Requires: newt, kudzu
 Prereq: gtk2 >= 2.6
+Patch0: system-config-keyboard-newfirstboot.patch
 
 %description
 system-config-keyboard is a graphical user interface that allows 
@@ -28,6 +30,7 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %install
 make INSTROOT=$RPM_BUILD_ROOT install
@@ -38,6 +41,8 @@ desktop-file-install --vendor system --delete-original      \
   --add-category System \
   --add-category HardwareSettings \
    $RPM_BUILD_ROOT%{_datadir}/applications/system-config-keyboard.desktop
+
+rm -f $RPM_BUILD_ROOT%{_datadir}/locale/no/LC_MESSAGES/system-config-keyboard.mo
 
 %find_lang %name
 
@@ -72,6 +77,12 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Tue Jan 22 2008 Jesse Keating <jkeating@redhat.com> - 1.2.11-4
+- Patch to work with new firstboot (#424811)
+- Add requires for kudzu/newt (#177301)
+- Update url (#235072)
+- Remove obsolete no translation (#332301)
+
 * Thu Aug 23 2007 Pete Graner <pgraner@redhat.com> - 1.2.11-3
 - Rebulid
 

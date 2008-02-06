@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.11
-Release: 5%{?dist}
+Release: 4%{?dist}
 URL: http://fedoraproject.org/wiki/SystemConfig/keyboard
 License: GPL+
 ExclusiveOS: Linux
@@ -64,15 +64,15 @@ fi
 /usr/bin/system-config-keyboard
 %dir /usr/share/system-config-keyboard
 /usr/share/system-config-keyboard/*
+%dir /usr/share/firstboot/
+%dir /usr/share/firstboot/modules
+/usr/share/firstboot/modules/*
 %attr(0644,root,root) %{_datadir}/applications/system-config-keyboard.desktop
 %attr(0644,root,root) %config /etc/security/console.apps/system-config-keyboard
 %attr(0644,root,root) %config /etc/pam.d/system-config-keyboard
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
-* Wed Feb 06 2008 Chris Lumens <clumens@redhat.com> 1.2.11-5
-- Remove firstboot keyboard module (#431143).
-
 * Tue Jan 22 2008 Jesse Keating <jkeating@redhat.com> - 1.2.11-4
 - Patch to work with new firstboot (#424811)
 - Add requires for kudzu/newt (#177301)

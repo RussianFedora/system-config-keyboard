@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.11
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: http://fedoraproject.org/wiki/SystemConfig/keyboard
 License: GPL+
 ExclusiveOS: Linux
@@ -22,7 +22,6 @@ Requires: pyxf86config
 Requires: firstboot
 Requires: newt, kudzu
 Prereq: gtk2 >= 2.6
-Patch0: system-config-keyboard-newfirstboot.patch
 
 %description
 system-config-keyboard is a graphical user interface that allows 
@@ -30,7 +29,6 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %install
 make INSTROOT=$RPM_BUILD_ROOT install
@@ -41,8 +39,6 @@ desktop-file-install --vendor system --delete-original      \
   --add-category System \
   --add-category HardwareSettings \
    $RPM_BUILD_ROOT%{_datadir}/applications/system-config-keyboard.desktop
-
-rm -f $RPM_BUILD_ROOT%{_datadir}/locale/no/LC_MESSAGES/system-config-keyboard.mo
 
 %find_lang %name
 
@@ -68,15 +64,15 @@ fi
 /usr/bin/system-config-keyboard
 %dir /usr/share/system-config-keyboard
 /usr/share/system-config-keyboard/*
-%dir /usr/share/firstboot/
-%dir /usr/share/firstboot/modules
-/usr/share/firstboot/modules/*
 %attr(0644,root,root) %{_datadir}/applications/system-config-keyboard.desktop
 %attr(0644,root,root) %config /etc/security/console.apps/system-config-keyboard
 %attr(0644,root,root) %config /etc/pam.d/system-config-keyboard
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Wed Feb 06 2008 Chris Lumens <clumens@redhat.com> 1.2.11-5
+- Remove firstboot keyboard module (#431143).
+
 * Tue Jan 22 2008 Jesse Keating <jkeating@redhat.com> - 1.2.11-4
 - Patch to work with new firstboot (#424811)
 - Add requires for kudzu/newt (#177301)

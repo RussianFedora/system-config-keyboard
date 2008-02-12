@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.11
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: http://fedoraproject.org/wiki/SystemConfig/keyboard
 License: GPL+
 ExclusiveOS: Linux
@@ -9,6 +9,7 @@ Group: System Environment/Base
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildArch: noarch
 Source0: %{name}-%{version}.tar.bz2
+Patch0: system-config-keyboard-1.2.11-false.patch
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: intltool
@@ -29,6 +30,7 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
+%patch0 -p1 -b .false
 
 %install
 make INSTROOT=$RPM_BUILD_ROOT install
@@ -73,6 +75,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Tue Feb 12 2008 Lubomir Kundrak <lkundrak@redhat.com> - 1.2.11-5
+- Fix a typo
+
 * Tue Jan 22 2008 Jesse Keating <jkeating@redhat.com> - 1.2.11-4
 - Patch to work with new firstboot (#424811)
 - Add requires for kudzu/newt (#177301)

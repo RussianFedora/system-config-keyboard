@@ -1,0 +1,16 @@
+19:07 < drago01> lkundrak: system-config-keyboard does not work due to a
+typo self.apply(None, false) should be self.apply(None, False) (traceback
+when pressing the ok button; rawhide)
+
+diff -urp system-config-keyboard-1.2.11.orig/src/keyboard_gui.py system-config-keyboard-1.2.11/src/keyboard_gui.py
+--- system-config-keyboard-1.2.11.orig/src/keyboard_gui.py	2008-02-06 23:06:47.000000000 +0100
++++ system-config-keyboard-1.2.11/src/keyboard_gui.py	2008-02-12 16:38:26.000000000 +0100
+@@ -225,7 +225,7 @@ class moduleClass(Module):
+     # All of these methods are needed for running s-c-keyboard as a
+     # standalone program.
+     def _okClicked(self, *args):
+-        return self.apply(None, false)
++        return self.apply(None, False)
+ 
+     def destroy(self, *args):
+         gtk.main_quit()

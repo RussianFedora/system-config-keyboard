@@ -1,7 +1,7 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.11
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: http://fedoraproject.org/wiki/SystemConfig/keyboard
 License: GPL+
 ExclusiveOS: Linux
@@ -75,7 +75,7 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
-* Tue Feb 12 2008 Lubomir Kundrak <lkundrak@redhat.com> - 1.2.11-5
+* Tue Feb 12 2008 Lubomir Kundrak <lkundrak@redhat.com> - 1.2.11-6
 - Fix a typo
 
 * Tue Jan 22 2008 Jesse Keating <jkeating@redhat.com> - 1.2.11-4

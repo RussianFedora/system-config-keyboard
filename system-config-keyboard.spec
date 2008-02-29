@@ -1,6 +1,6 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
-Version: 1.2.12
+Version: 1.2.13
 Release: 1%{?dist}
 URL: http://fedoraproject.org/wiki/SystemConfig/keyboard
 License: GPL+
@@ -73,6 +73,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Fri Feb 29 2008 Chris Lumens <clumens@redhat.com> 1.2.13-1
+- Fix a traceback in the firstboot module (#435416).
+
 * Tue Feb 19 2008 Chris Lumens <clumens@redhat.com> 1.2.12-1
 - Fix setting the default keyboard in anaconda (#432158).
 

@@ -1,6 +1,6 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
-Version: 1.2.13
+Version: 1.2.14
 Release: 1%{?dist}
 URL: http://fedoraproject.org/wiki/SystemConfig/keyboard
 License: GPL+
@@ -20,7 +20,7 @@ Requires: usermode >= 1.36
 Requires: rhpl >= 0.53
 Requires: pyxf86config
 Requires: firstboot
-Requires: newt, kudzu
+Requires: newt
 Prereq: gtk2 >= 2.6
 
 %description
@@ -73,6 +73,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Wed Mar 26 2008 Bill Nottingham <notting@redhat.com> 1.2.14-1
+- this doesn't actually require kudzu
+
 * Fri Feb 29 2008 Chris Lumens <clumens@redhat.com> 1.2.13-1
 - Fix a traceback in the firstboot module (#435416).
 

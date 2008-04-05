@@ -1,51 +1,58 @@
-Summary: A graphical interface for modifying the keyboard
-Name: system-config-keyboard
-Version: 1.2.14
-Release: 2%{?dist}
-URL: https://fedorahosted.org/system-config-keyboard/
-License: GPL+
-ExclusiveOS: Linux
-Group: System Environment/Base
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildArch: noarch
-Source0: %{name}-%{version}.tar.bz2
-Patch0: system-config-keyboard-1.2.14-desktop.patch
-BuildRequires: desktop-file-utils
-BuildRequires: gettext
-BuildRequires: intltool
-Obsoletes: kbdconfig
-Obsoletes: redhat-config-keyboard
-ExcludeArch: s390 s390x ppc64
-Requires: python2
-Requires: usermode >= 1.36
-Requires: rhpl >= 0.53
-Requires: pyxf86config
-Requires: firstboot
-Requires: newt
-Prereq: gtk2 >= 2.6
+Name:           system-config-keyboard
+Version:        1.2.14
+Release:        2%{?dist}
+Summary:        A graphical interface for modifying the keyboard
+
+Group:          System Environment/Base
+License:        GPL+
+URL:            https://fedorahosted.org/system-config-keyboard/
+Source0:        %{name}-%{version}.tar.bz2
+Patch0:         system-config-keyboard-1.2.14-desktop.patch
+Patch1:         system-config-keyboard-1.2.14-cherrypick.patch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildArch:      noarch
+
+BuildRequires:  desktop-file-utils
+BuildRequires:  gettext
+BuildRequires:  intltool
+
+Requires:       python2
+Requires:       usermode >= 1.36
+Requires:       rhpl >= 0.53
+Requires:       pyxf86config
+Requires:       firstboot
+
+Obsoletes:      kbdconfig
+Obsoletes:      redhat-config-keyboard
 
 %description
 system-config-keyboard is a graphical user interface that allows 
 the user to change the default keyboard of the system.
 
+
 %prep
 %setup -q
-%patch0 -p1 -b .desktop
+%patch0 -p0 -b .desktop
+%patch1 -p0 -b .cherrypick
+
+
+%build
+make
+
 
 %install
+rm -rf $RPM_BUILD_ROOT
 make INSTROOT=$RPM_BUILD_ROOT install
 desktop-file-install --vendor system --delete-original      \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications             \
-  --add-category X-Red-Hat-Base \
-  --add-category Settings \
-  --add-category System \
-  --add-category HardwareSettings \
    $RPM_BUILD_ROOT%{_datadir}/applications/system-config-keyboard.desktop
 
-%find_lang %name
+%find_lang %{name}
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 
 %post
 touch --no-create %{_datadir}/icons/hicolor
@@ -53,30 +60,30 @@ if [ -x /usr/bin/gtk-update-icon-cache ]; then
   gtk-update-icon-cache -q %{_datadir}/icons/hicolor
 fi
 
+
 %postun
 touch --no-create %{_datadir}/icons/hicolor
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
   gtk-update-icon-cache -q %{_datadir}/icons/hicolor
 fi
 
+
 %files -f %{name}.lang
 %defattr(-,root,root)
-#%doc COPYING
-#%doc doc/*
-/usr/bin/system-config-keyboard
-%dir /usr/share/system-config-keyboard
-/usr/share/system-config-keyboard/*
-%dir /usr/share/firstboot/
-%dir /usr/share/firstboot/modules
-/usr/share/firstboot/modules/*
+%doc COPYING
+%{_bindir}/system-config-keyboard
+%{_datadir}/system-config-keyboard
+%{_datadir}/firstboot/modules/*
 %attr(0644,root,root) %{_datadir}/applications/system-config-keyboard.desktop
-%attr(0644,root,root) %config /etc/security/console.apps/system-config-keyboard
-%attr(0644,root,root) %config /etc/pam.d/system-config-keyboard
+%attr(0644,root,root) %config %{_sysconfdir}/security/console.apps/system-config-keyboard
+%attr(0644,root,root) %config %{_sysconfdir}/pam.d/system-config-keyboard
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
+
 
 %changelog
 * Sat Apr 05 2008 Bill Nottingham <notting@redhat.com> 1.2.14-2
 - Do not show in KDE and Gnome menus
+- Rework specfile
 
 * Wed Mar 26 2008 Bill Nottingham <notting@redhat.com> 1.2.14-1
 - this doesn't actually require kudzu

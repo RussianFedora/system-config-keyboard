@@ -1,14 +1,15 @@
 Summary: A graphical interface for modifying the keyboard
 Name: system-config-keyboard
 Version: 1.2.14
-Release: 1%{?dist}
-URL: http://fedoraproject.org/wiki/SystemConfig/keyboard
+Release: 2%{?dist}
+URL: https://fedorahosted.org/system-config-keyboard/
 License: GPL+
 ExclusiveOS: Linux
 Group: System Environment/Base
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildArch: noarch
 Source0: %{name}-%{version}.tar.bz2
+Patch0: system-config-keyboard-1.2.14-desktop.patch
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: intltool
@@ -29,6 +30,7 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
+%patch0 -p1 -b .desktop
 
 %install
 make INSTROOT=$RPM_BUILD_ROOT install
@@ -73,6 +75,9 @@ fi
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
 
 %changelog
+* Sat Apr 05 2008 Bill Nottingham <notting@redhat.com> 1.2.14-2
+- Do not show in KDE and Gnome menus
+
 * Wed Mar 26 2008 Bill Nottingham <notting@redhat.com> 1.2.14-1
 - this doesn't actually require kudzu
 

@@ -1,0 +1,14 @@
+Index: system-config-keyboard.desktop.in
+===================================================================
+--- system-config-keyboard.desktop.in	(revision 551)
++++ system-config-keyboard.desktop.in	(working copy)
+@@ -2,7 +2,8 @@
+ _Name=Keyboard
+ _Comment=Configure the system keyboard
+ Icon=system-config-keyboard.png
+-Exec=/usr/bin/system-config-keyboard
++Exec=system-config-keyboard
+ Type=Application
+ StartupNotify=true
+ Terminal=false
++NotShowIn=GNOME;KDE;

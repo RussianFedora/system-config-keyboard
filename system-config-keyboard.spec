@@ -1,14 +1,15 @@
 Name:           system-config-keyboard
 Version:        1.2.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
-License:        GPL+
+License:        GPL2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        %{name}-%{version}.tar.bz2
 Patch0:         system-config-keyboard-1.2.14-desktop.patch
 Patch1:         system-config-keyboard-1.2.14-cherrypick.patch
+Patch2:         system-config-keyboard-1.2.14-nocorekeyb.patch 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
@@ -34,6 +35,7 @@ the user to change the default keyboard of the system.
 %setup -q
 %patch0 -p0 -b .desktop
 %patch1 -p0 -b .cherrypick
+%patch2 -p0 -b .nocorekeyb
 
 
 %build
@@ -81,7 +83,11 @@ fi
 
 
 %changelog
-* Sat Apr 05 2008 Bill Nottingham <notting@redhat.com> 1.2.14-2
+* Sat Apr 12 2008 Lubomir Kundrak <lkundrak@redhat.com> 1.2.14-3
+- Handle situations where CoreKeyboard is not present
+- Fix License tag
+
+* Sat Apr 05 2008 Lubomir Kundrak <lkundrak@redhat.com> 1.2.14-2
 - Do not show in KDE and Gnome menus
 - Rework specfile
 

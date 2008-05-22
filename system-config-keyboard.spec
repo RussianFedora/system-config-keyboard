@@ -1,6 +1,6 @@
 Name:           system-config-keyboard
 Version:        1.2.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -8,6 +8,7 @@ License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        %{name}-%{version}.tar.gz
 Patch0:         system-config-keyboard-1.2.15-fixcomments.patch
+Patch1:         system-config-keyboard-1.2.15-beenset.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
@@ -32,6 +33,7 @@ the user to change the default keyboard of the system.
 %prep
 %setup -q
 %patch0 -p0 -b .fixcomments
+%patch1 -p1 -b .beenset
 
 
 %build
@@ -80,6 +82,9 @@ fi
 
 
 %changelog
+* Thu May 22 2008 Lubomir Rintel <lkundrak@v3.sk> 1.2.15-3
+- Fix traceback from firstboot (#305465)
+
 * Sat Apr 12 2008 Lubomir Kundrak <lkundrak@redhat.com> 1.2.15-2
 - Fix the comment line ending
 

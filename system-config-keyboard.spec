@@ -35,7 +35,7 @@ the user to change the default keyboard of the system.
 %setup -q
 %patch0 -p0 -b .fixcomments
 %patch1 -p1 -b .beenset
-%patch2
+%patch2 -p1
 
 
 %build

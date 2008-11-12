@@ -1,0 +1,17 @@
+Fix invalid icon name.
+
+Lubomir Rintel <lkundrak@v3.sk>
+
+diff -up system-config-keyboard-1.2.15/system-config-keyboard.desktop.ext system-config-keyboard-1.2.15/system-config-keyboard.desktop
+diff -up system-config-keyboard-1.2.15/system-config-keyboard.desktop.in.ext system-config-keyboard-1.2.15/system-config-keyboard.desktop.in
+--- system-config-keyboard-1.2.15/system-config-keyboard.desktop.in.ext	2008-11-12 23:53:52.000000000 +0100
++++ system-config-keyboard-1.2.15/system-config-keyboard.desktop.in	2008-11-12 23:54:07.000000000 +0100
+@@ -1,7 +1,7 @@
+ [Desktop Entry]
+ _Name=Keyboard
+ _Comment=Configure the system keyboard
+-Icon=system-config-keyboard.png
++Icon=system-config-keyboard
+ Exec=system-config-keyboard
+ Type=Application
+ Categories=Settings;System;HardwareSettings;

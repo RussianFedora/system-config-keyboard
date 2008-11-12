@@ -1,6 +1,6 @@
 Name:           system-config-keyboard
 Version:        1.2.15
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -10,6 +10,8 @@ Source0:        %{name}-%{version}.tar.gz
 Patch0:         system-config-keyboard-1.2.15-fixcomments.patch
 Patch1:         system-config-keyboard-1.2.15-beenset.patch
 Patch2:         system-config-keyboard-1.2.15-reconfig.patch
+Patch3:         system-config-keyboard-1.2.15-icon.patch
+Patch4:         system-config-keyboard-1.2.15-ext.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
@@ -35,7 +37,9 @@ the user to change the default keyboard of the system.
 %setup -q
 %patch0 -p0 -b .fixcomments
 %patch1 -p1 -b .beenset
-%patch2 -p1
+%patch2 -p1 -b .reconfig
+%patch3 -p1 -b .icon
+%patch4 -p1 -b .ext
 
 
 %build
@@ -84,6 +88,10 @@ fi
 
 
 %changelog
+* Wed Nov 12 2008 Lubomir Rintel <lkundrak@v3.sk> - 1.2.15-5
+- Include icon in anaconda keyboard selection screen (#469165)
+- Remove extension from desktop entry icon
+
 * Thu Oct 23 2008 Chris Lumens <clumens@redhat.com> 1.2.15-4
 - Fix a traceback when running under firstboot reconfig mode.
 

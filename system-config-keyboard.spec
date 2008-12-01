@@ -1,6 +1,6 @@
 Name:           system-config-keyboard
 Version:        1.2.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -88,6 +88,9 @@ fi
 
 
 %changelog
+* Mon Dec 01 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1.2.15-6
+- Rebuild for Python 2.6
+
 * Wed Nov 12 2008 Lubomir Rintel <lkundrak@v3.sk> - 1.2.15-5
 - Include icon in anaconda keyboard selection screen (#469165)
 - Remove extension from desktop entry icon

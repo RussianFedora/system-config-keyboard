@@ -1,6 +1,6 @@
 Name:           system-config-keyboard
 Version:        1.2.15
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -12,6 +12,7 @@ Patch1:         system-config-keyboard-1.2.15-beenset.patch
 Patch2:         system-config-keyboard-1.2.15-reconfig.patch
 Patch3:         system-config-keyboard-1.2.15-icon.patch
 Patch4:         system-config-keyboard-1.2.15-ext.patch
+Patch5:         system-config-keyboard-1.2.15-nolayout.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
@@ -40,6 +41,7 @@ the user to change the default keyboard of the system.
 %patch2 -p1 -b .reconfig
 %patch3 -p1 -b .icon
 %patch4 -p1 -b .ext
+%patch5 -p1 -b .nolayout
 
 
 %build
@@ -88,6 +90,10 @@ fi
 
 
 %changelog
+* Wed Mar 04 2009 Peter Hutterer <peter.hutterer@redhat.com> 1.2.15-8
+- system-config-keyboard-1.2.15-nolayout.patch: insert a default ServerLayout
+  section if none is found.
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.15-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 

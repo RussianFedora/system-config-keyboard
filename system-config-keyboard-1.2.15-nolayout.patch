@@ -1,0 +1,16 @@
+Create a default layout if none is given before inserting the core keyboard.
+
+Index: keyboard_backend.py
+===================================================================
+--- system-config-keyboard-1.2.15/src/keyboard_backend.py	(revision 569)
++++ system-config-keyboard-1.2.15/src/keyboard_backend.py	(working copy)
+@@ -44,6 +44,9 @@
+                 keyboard.options.insert (xf86config.XF86Option("XkbModel", "pc101"))
+                 keyboard.options.insert (xf86config.XF86Option("XkbLayout", "us"))
+                 xconfig.input.insert (keyboard)
++                if len(xconfig.layout) == 0:
++                    xconfig.layout.insert(xf86config.XF86ConfLayout())
++
+                 xconfig.layout[0].inputs.insert (xf86config.XF86ConfInputref ("Keyboard0", "CoreKeyboard"));
+             
+             found = 0

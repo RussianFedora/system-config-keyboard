@@ -1,6 +1,6 @@
 Name:           system-config-keyboard
 Version:        1.2.15
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -10,6 +10,7 @@ Source0:        %{name}-%{version}.tar.gz
 Patch0:         system-config-keyboard-1.2.15-fixcomments.patch
 Patch1:         system-config-keyboard-1.2.15-beenset.patch
 Patch2:         system-config-keyboard-1.2.15-reconfig.patch
+Patch3:         system-config-keyboard-1.2.15-nolayout.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
@@ -36,6 +37,7 @@ the user to change the default keyboard of the system.
 %patch0 -p0 -b .fixcomments
 %patch1 -p1 -b .beenset
 %patch2 -p1
+%patch3 -p1
 
 
 %build
@@ -84,6 +86,10 @@ fi
 
 
 %changelog
+* Tue Mar 10 2009 Peter Hutterer <peter.hutterer@redhat.com> 1.2.15-5
+- system-config-keyboard-1.2.15-nolayout.patch: insert a default ServerLayout
+  section if none is found. (#484488)
+
 * Thu Oct 23 2008 Chris Lumens <clumens@redhat.com> 1.2.15-4
 - Fix a traceback when running under firstboot reconfig mode.
 

@@ -1,6 +1,6 @@
 Name:           system-config-keyboard
 Version:        1.2.15
-Release:        8%{?dist}
+Release:        8%{?dist}.1
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -23,7 +23,9 @@ BuildRequires:  intltool
 Requires:       python2
 Requires:       usermode >= 1.36
 Requires:       rhpl >= 0.53
+%ifnarch s390 s390x
 Requires:       pyxf86config
+%endif
 Requires:       firstboot
 
 Obsoletes:      kbdconfig
@@ -90,6 +92,9 @@ fi
 
 
 %changelog
+* Thu Jun 18 2009 Karsten Hopp <karsten@redhat.com> 1.2.15-8.1
+- don't require pyxf86config on s390x
+
 * Wed Mar 04 2009 Peter Hutterer <peter.hutterer@redhat.com> 1.2.15-8
 - system-config-keyboard-1.2.15-nolayout.patch: insert a default ServerLayout
   section if none is found.

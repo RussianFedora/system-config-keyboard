@@ -1,6 +1,6 @@
 Name:           system-config-keyboard
 Version:        1.2.15
-Release:        8%{?dist}.1
+Release:        8%{?dist}.2
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -23,9 +23,7 @@ BuildRequires:  intltool
 Requires:       python2
 Requires:       usermode >= 1.36
 Requires:       rhpl >= 0.53
-%ifnarch s390 s390x
 Requires:       pyxf86config
-%endif
 Requires:       firstboot
 
 Obsoletes:      kbdconfig
@@ -92,6 +90,9 @@ fi
 
 
 %changelog
+* Mon Jun 22 2009 Karsten Hopp <karsten@redhat.com> 1.2.15-8.2
+- ifnarch doesn't work in noarch packages, undo last change
+
 * Thu Jun 18 2009 Karsten Hopp <karsten@redhat.com> 1.2.15-8.1
 - don't require pyxf86config on s390x
 

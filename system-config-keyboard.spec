@@ -1,30 +1,26 @@
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+
 Name:           system-config-keyboard
-Version:        1.2.15
-Release:        8%{?dist}.2
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
 License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        %{name}-%{version}.tar.gz
-Patch0:         system-config-keyboard-1.2.15-fixcomments.patch
-Patch1:         system-config-keyboard-1.2.15-beenset.patch
-Patch2:         system-config-keyboard-1.2.15-reconfig.patch
-Patch3:         system-config-keyboard-1.2.15-icon.patch
-Patch4:         system-config-keyboard-1.2.15-ext.patch
-Patch5:         system-config-keyboard-1.2.15-nolayout.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  intltool
 
-Requires:       python2
+Requires:       python
 Requires:       usermode >= 1.36
-Requires:       rhpl >= 0.53
-Requires:       pyxf86config
 Requires:       firstboot
+%ifnarch s390 s390x
+Requires:       pyxf86config
+%endif
 
 Obsoletes:      kbdconfig
 Obsoletes:      redhat-config-keyboard
@@ -36,12 +32,6 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
-%patch0 -p0 -b .fixcomments
-%patch1 -p1 -b .beenset
-%patch2 -p1 -b .reconfig
-%patch3 -p1 -b .icon
-%patch4 -p1 -b .ext
-%patch5 -p1 -b .nolayout
 
 
 %build
@@ -87,9 +77,16 @@ fi
 %attr(0644,root,root) %config %{_sysconfdir}/security/console.apps/system-config-keyboard
 %attr(0644,root,root) %config %{_sysconfdir}/pam.d/system-config-keyboard
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
+%{python_sitelib}/system_config_keyboard
 
 
 %changelog
+* Mon Jul 27 2009 Lubomir Rintel <lkundrak@v3.sk> 1.3.0-1
+- New upstream release
+- Drop upstreamed patches
+- Make arch-dependent
+- Drop rphl dependency
+
 * Mon Jun 22 2009 Karsten Hopp <karsten@redhat.com> 1.2.15-8.2
 - ifnarch doesn't work in noarch packages, undo last change
 

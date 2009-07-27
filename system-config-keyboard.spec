@@ -8,7 +8,7 @@ Summary:        A graphical interface for modifying the keyboard
 Group:          System Environment/Base
 License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
-Source0:        %{name}-%{version}.tar.gz
+Source0:        https://fedorahosted.org/releases/s/y/system-config-keyboard/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils

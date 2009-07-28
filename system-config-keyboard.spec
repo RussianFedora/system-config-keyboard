@@ -1,8 +1,9 @@
+%global debug_package %{nil}
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           system-config-keyboard
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -81,6 +82,9 @@ fi
 
 
 %changelog
+* Mon Jul 27 2009 Lubomir Rintel <lkundrak@v3.sk> 1.3.0-2
+- Disable debuginfo subpackage
+
 * Mon Jul 27 2009 Lubomir Rintel <lkundrak@v3.sk> 1.3.0-1
 - New upstream release
 - Drop upstreamed patches

@@ -3,13 +3,14 @@
 
 Name:           system-config-keyboard
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
 License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        https://fedorahosted.org/releases/s/y/system-config-keyboard/%{name}-%{version}.tar.gz
+Patch0:         system-config-keyboard-dracut.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -33,6 +34,7 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
+%patch0 -p0 -b .dracut
 
 
 %build
@@ -82,6 +84,9 @@ fi
 
 
 %changelog
+* Wed Aug 05 2009 Lubomir Rintel <lkundrak@v3.sk> 1.3.0-3
+- Include dracutSetupString() patch by Hans
+
 * Mon Jul 27 2009 Lubomir Rintel <lkundrak@v3.sk> 1.3.0-2
 - Disable debuginfo subpackage
 

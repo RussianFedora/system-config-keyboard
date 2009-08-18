@@ -1,0 +1,35 @@
+From b567829289bfb98b859aee6327c69603c7c73950 Mon Sep 17 00:00:00 2001
+From: Chris Lumens <clumens@redhat.com>
+Date: Tue, 18 Aug 2009 07:17:37 +0200
+Subject: [PATCH] Create /etc/sysconfig/keyboard in instroot
+
+https://bugzilla.redhat.com/show_bug.cgi?id=517542
+---
+ lib/keyboard.py |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/keyboard.py b/lib/keyboard.py
+index 9a0cdc1..5b0ac00 100644
+--- a/lib/keyboard.py
++++ b/lib/keyboard.py
+@@ -120,7 +120,7 @@ class Keyboard():
+ 
+     def read(self, instPath = "/"):
+         try:
+-            file = open("/etc/sysconfig/keyboard", "r")
++            file = open(instPath + "/etc/sysconfig/keyboard", "r")
+         except:
+             return
+         self.config = []
+@@ -133,7 +133,7 @@ class Keyboard():
+         self.beenset = 1
+ 
+     def write(self, instPath = "/"):
+-	file = open("/etc/sysconfig/keyboard", "w")
++	file = open(instPath + "/etc/sysconfig/keyboard", "w")
+ 	for line in self.config:
+                 file.write (line[0]);
+         try:
+-- 
+1.6.2.5
+

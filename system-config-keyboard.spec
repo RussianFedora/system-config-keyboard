@@ -2,16 +2,14 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           system-config-keyboard
-Version:        1.3.0
-Release:        4%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
 License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        https://fedorahosted.org/releases/s/y/system-config-keyboard/%{name}-%{version}.tar.gz
-Patch0:         system-config-keyboard-dracut.patch
-Patch1:         system-config-keyboard-1.3.0-instroot.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -35,8 +33,6 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
-%patch0 -p0 -b .dracut
-%patch1 -p1 -b .instroot
 
 
 %build
@@ -86,6 +82,10 @@ fi
 
 
 %changelog
+* Mon Sep 14 2009 Lubomir Rintel <lkundrak@v3.sk> 1.3.1-1
+- New upstream release
+- Drop upstreamed patches
+
 * Tue Aug 18 2009 Lubomir Rintel <lkundrak@v3.sk> 1.3.0-4
 - Wrong keyboard layout after install fix (#517542), Chris Lumens
 

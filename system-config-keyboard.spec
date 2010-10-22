@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -18,7 +18,6 @@ BuildRequires:  intltool
 
 Requires:       python
 Requires:       usermode >= 1.36
-Requires:       firstboot
 %ifnarch s390 s390x
 Requires:       pyxf86config
 %endif
@@ -73,6 +72,7 @@ fi
 %{_sbindir}/system-config-keyboard
 %{_bindir}/system-config-keyboard
 %{_datadir}/system-config-keyboard
+%attr(0755,root,root) %dir %{_datadir}/firstboot/modules
 %{_datadir}/firstboot/modules/*
 %attr(0644,root,root) %{_datadir}/applications/system-config-keyboard.desktop
 %attr(0644,root,root) %config %{_sysconfdir}/security/console.apps/system-config-keyboard
@@ -82,6 +82,9 @@ fi
 
 
 %changelog
+* Fri Oct 22 2010 Bill Nottingham <notting@redhat.com> - 1.3.1-3
+- Drop firstboot requirement (#629456)
+
 * Thu Jul 22 2010 David Malcolm <dmalcolm@redhat.com> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
 

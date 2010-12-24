@@ -1,0 +1,271 @@
+diff -urN system-config-keyboard-1.3.1.orig/lib/keyboard_models.py system-config-keyboard-1.3.1/lib/keyboard_models.py
+--- system-config-keyboard-1.3.1.orig/lib/keyboard_models.py	2010-09-30 13:13:18.576136103 +0400
++++ system-config-keyboard-1.3.1/lib/keyboard_models.py	2010-09-30 13:14:16.678012175 +0400
+@@ -207,7 +207,16 @@
+             'ro-std-cedilla'                  : [_('keyboard|Romanian Standard Cedilla'), 'ro', 'pc105', 'std_cedilla', ''],
+             # Translators: the word before the bar is just context and
+             # doesn't need to be translated. Only after will be translated.
+-            'ru'                      : [_('keyboard|Russian'), 'ru,us', 'pc105', '', 'grp:shifts_toggle,grp_led:scroll'],
++            'ru'              : [_('keyboard|Russian (Alt-Shift)'), 'us,ru', 'pc105', '', 'grp:alt_shift_toggle,grp_led:scroll'],
++            'ru-lcls'         : [_('keyboard|Russian (LCtrl-LShift)'), 'us,ru', 'pc105', '', 'grp:lctrl_lshift_toggle,grp_led:scroll'],
++            'ru-rcrs'         : [_('keyboard|Russian (RCtrl-RShift)'), 'us,ru', 'pc105', '', 'grp:rctrl_rshift_toggle,grp_led:scroll'],
++            'ru-cs'           : [_('keyboard|Russian (Ctrl-Shift)'), 'us,ru', 'pc105', '', 'grp:ctrl_shift_toggle,grp_led:scroll'],
++            'ru-sc'           : [_('keyboard|Russian (Shift-Caps)'), 'us,ru', 'pc105', '', 'grp:shift_caps_toggle,grp_led:scroll'],
++            'ru-ss'           : [_('keyboard|Russian (Shift-Shift)'), 'us,ru', 'pc105', '', 'grp:shifts_toggle,grp_led:scroll'],
++            'ru-m'            : [_('keyboard|Russian (Menu)'), 'us,ru', 'pc105', '', 'grp:menu_toggle,grp_led:scroll'],
++            'ru-rw'           : [_('keyboard|Russian (RWin)'), 'us,ru', 'pc105', '', 'grp:rwin_toggle,grp_led:scroll'],
++            'ru-lw'           : [_('keyboard|Russian (LWin)'), 'us,ru', 'pc105', '', 'grp:lwin_toggle,grp_led:scroll'],
++            'ru-rc'           : [_('keyboard|Russian (RCtrl)'), 'us,ru', 'pc105', '', 'grp:rctrl_toggle,grp_led:scroll'],
+             # Translators: the word before the bar is just context and
+             # doesn't need to be translated. Only after will be translated.
+             'sr-cy'                 : [_('keyboard|Serbian'), 'rs', 'pc105', '', ''],
+@@ -246,7 +255,7 @@
+             'uk'                      : [_('keyboard|United Kingdom'), 'gb', 'pc105', '', ''],
+             # Translators: the word before the bar is just context and
+             # doesn't need to be translated. Only after will be translated.
+-            'ua-utf'                  : [_('keyboard|Ukrainian'), 'ua,us', 'pc105', '', 'grp:shifts_toggle,grp_led:scroll'],
++            'ua-utf'                  : [_('keyboard|Ukrainian'), 'us,ua', 'pc105', '', 'grp:shifts_toggle,grp_led:scroll'],
+             # Translators: the word before the bar is just context and
+             # doesn't need to be translated. Only after will be translated.
+             'us-acentos'              : [_('keyboard|U.S. International'), 'us', 'pc105', 'intl', ''],
+diff -urN system-config-keyboard-1.3.1.orig/lib/keyboard.py system-config-keyboard-1.3.1/lib/keyboard.py
+--- system-config-keyboard-1.3.1.orig/lib/keyboard.py	2010-09-30 13:13:18.576136103 +0400
++++ system-config-keyboard-1.3.1/lib/keyboard.py	2010-09-30 13:13:23.020011891 +0400
+@@ -79,7 +79,22 @@
+     def set(self, keytable):
+         if self.type != "Serial":
+             kb = self.modelDict[keytable]
+-            self._var ("KEYTABLE", keytable)
++            if keytable == "ru-cs":
++                self._var ("KEYTABLE", "ru")
++            elif keytable == "ru-lcls":
++                self._var ("KEYTABLE", "ru")
++            elif keytable == "ru-rcrs":
++                self._var ("KEYTABLE", "ru")
++            elif keytable == "ru-sc":
++                self._var ("KEYTABLE", "ru")
++            elif keytable == "ru-ss":
++                self._var ("KEYTABLE", "ru")
++            elif keytable == "ru-m":
++                self._var ("KEYTABLE", "ru")
++            elif keytable == "ru-rw":
++                self._var ("KEYTABLE", "ru")
++            else:
++                self._var ("KEYTABLE", keytable)
+             self._var ("MODEL", kb[2])
+             self._var ("LAYOUT", kb[1])
+             self._var ("VARIANT", kb[3])
+@@ -179,7 +194,7 @@
+ 
+         # XXX setxkbmap(1) needs one -option flag for each option
+         if options:
+-            argv = argv + [ "-option", options ]
++            argv = argv + [ "-option", "-option", self._var("OPTIONS") ]
+ 
+         if variant:
+             argv = argv + [ "-variant", variant ]
+@@ -187,6 +202,12 @@
+         if os.access(argv[0], os.X_OK) == 1:
+             call (argv)
+ 
++        if os.access("/usr/bin/gconftool-2", os.X_OK):
++            argv = [ "/usr/bin/set-gconf-layout", layout ]
++
++	if os.access(argv[0], os.X_OK) == 1:
++            call (argv)
++
+     def dracutSetupString(self):
+         args = ""
+         keyboardtype = self._var("KEYBOARDTYPE")
+diff -urN system-config-keyboard-1.3.1.orig/po/ru.po system-config-keyboard-1.3.1/po/ru.po
+--- system-config-keyboard-1.3.1.orig/po/ru.po	2010-09-30 13:13:18.574136079 +0400
++++ system-config-keyboard-1.3.1/po/ru.po	2010-09-30 13:13:50.558952522 +0400
+@@ -407,97 +407,134 @@
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
++
+ #: ../lib/keyboard_models.py:210
+-msgid "keyboard|Russian"
+-msgstr "keyboard|Русская"
++msgid "keyboard|Russian (Alt-Shift)"
++msgstr "keyboard|Русская (Клавиши Alt - Shift)"
++
++#: ../lib/keyboard_models.py:211
++msgid "keyboard|Russian (LCtrl-LShift)"
++msgstr "keyboard|Русская (Левый Ctrl - Левый Shift)"
++
++#: ../lib/keyboard_models.py:212
++msgid "keyboard|Russian (RCtrl-RShift)"
++msgstr "keyboard|Русская (Правый Ctrl - Правый Shift)"
++
++#: ../lib/keyboard_models.py:213
++msgid "keyboard|Russian (Ctrl-Shift)"
++msgstr "keyboard|Русская (Клавиши Ctrl - Shift)"
++
++#: ../lib/keyboard_models.py:214
++msgid "keyboard|Russian (Shift-Caps)"
++msgstr "keyboard|Русская (Клавиши Shift - Caps)"
++
++#: ../lib/keyboard_models.py:215
++msgid "keyboard|Russian (Shift-Shift)"
++msgstr "keyboard|Русская (Обе клавиши Shift)"
++
++#: ../lib/keyboard_models.py:216
++msgid "keyboard|Russian (Menu)"
++msgstr "keyboard|Русская (Клавиша Menu)"
++
++#: ../lib/keyboard_models.py:217
++msgid "keyboard|Russian (RWin)"
++msgstr "keyboard|Русская (Правая клавиша Win)"
++
++#: ../lib/keyboard_models.py:218
++msgid "keyboard|Russian (LWin)"
++msgstr "keyboard|Русская (Левая клавиша Win)"
++
++#: ../lib/keyboard_models.py:219
++msgid "keyboard|Russian (RCtrl)"
++msgstr "keyboard|Русская (Правая клавиша Ctrl)"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:213
++#: ../lib/keyboard_models.py:220
+ msgid "keyboard|Serbian"
+ msgstr "keyboard|Сербская"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:216
++#: ../lib/keyboard_models.py:223
+ msgid "keyboard|Serbian (latin)"
+ msgstr "keyboard|Сербская (Латинский)"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:219
++#: ../lib/keyboard_models.py:226
+ msgid "keyboard|Swedish"
+ msgstr "keyboard|Шведская"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:222
++#: ../lib/keyboard_models.py:229
+ msgid "keyboard|Swiss German"
+ msgstr "keyboard|Швейцарская (немецкий)"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:225
++#: ../lib/keyboard_models.py:232
+ msgid "keyboard|Swiss German (latin1)"
+ msgstr "keyboard|Швейцарская (немецкий, latin1)"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:228
++#: ../lib/keyboard_models.py:235
+ msgid "keyboard|Slovak (qwerty)"
+ msgstr "keyboard|Словацкий (qwerty)"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:231
++#: ../lib/keyboard_models.py:238
+ msgid "keyboard|Slovenian"
+ msgstr "keyboard|Словенская"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:234
++#: ../lib/keyboard_models.py:241
+ msgid "keyboard|Tajik"
+ msgstr "keyboard|Таджикский "
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:237
++#: ../lib/keyboard_models.py:244
+ msgid "keyboard|Tamil (Inscript)"
+ msgstr "keyboard|Тамильская (Inscript)"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:240
++#: ../lib/keyboard_models.py:247
+ msgid "keyboard|Tamil (Typewriter)"
+ msgstr "keyboard|Тамильская (Typewriter)"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:243
++#: ../lib/keyboard_models.py:250
+ msgid "keyboard|Turkish"
+ msgstr "keyboard|Турецкая"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:246
++#: ../lib/keyboard_models.py:253
+ msgid "keyboard|United Kingdom"
+ msgstr "keyboard|Соединенное Королевство"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:249
++#: ../lib/keyboard_models.py:256
+ msgid "keyboard|Ukrainian"
+ msgstr "keyboard|Украинская"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:252
++#: ../lib/keyboard_models.py:259
+ msgid "keyboard|U.S. International"
+ msgstr "keyboard|Английская (международная)"
+ 
+ #. Translators: the word before the bar is just context and
+ #. doesn't need to be translated. Only after will be translated.
+-#: ../lib/keyboard_models.py:255
++#: ../lib/keyboard_models.py:262
+ msgid "keyboard|U.S. English"
+ msgstr "keyboard|Английская (США)"
+ 
+diff -urN system-config-keyboard-1.3.1.orig/src/set-gconf-layout system-config-keyboard-1.3.1/src/set-gconf-layout
+--- system-config-keyboard-1.3.1.orig/src/set-gconf-layout	1970-01-01 03:00:00.000000000 +0300
++++ system-config-keyboard-1.3.1/src/set-gconf-layout	2010-09-30 13:13:23.022011668 +0400
+@@ -0,0 +1,33 @@
++#!/bin/sh
++
++# This script push to GConf layouts settings as
++# GNOME keyboard switcher could work proper 
++
++usage()
++{
++    echo "Usage: set-gconf-layout <layouts>"
++    exit 2;
++}
++
++if [ $(id -u) -ne 0 ]; then
++    echo "Your must be root. Abort..."
++    exit 1
++fi
++
++LAYOUT=$1
++
++if [ "x$LAYOUT" == "x" ]; then
++    usage
++fi
++
++if [ -x /usr/bin/gconftool-2 ]; then
++    /usr/bin/gconftool-2 --direct --config-source=xml:readwrite:/etc/gconf/gconf.xml.defaults \
++        -s -t list --list-type=string /desktop/gnome/peripherals/keyboard/kbd/layouts "[$LAYOUT]"
++
++    if [ -f /etc/sysconfig/keyboard ]; then
++        . /etc/sysconfig/keyboard
++        LAYOUT_OPT=$(echo $OPTIONS | sed 's!grp:!grp\tgrp:!g;s!grp_led:!grp\tgrp_led:!g')
++        /usr/bin/gconftool-2 --direct --config-source=xml:readwrite:/etc/gconf/gconf.xml.defaults \
++            -s -t list --list-type=string /desktop/gnome/peripherals/keyboard/kbd/options "[$LAYOUT_OPT]" > /dev/null
++    fi
++fi

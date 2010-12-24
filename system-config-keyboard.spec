@@ -3,13 +3,14 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}.3
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
 License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        https://fedorahosted.org/releases/s/y/system-config-keyboard/%{name}-%{version}.tar.gz
+Patch0:		%{name}-1.3.1-layouts.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -33,6 +34,7 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
+%patch0 -p1 -b .layouts
 
 
 %build
@@ -42,6 +44,23 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 make INSTROOT=$RPM_BUILD_ROOT install
+
+mkdir -p $RPM_BUILD_ROOT/lib/kbd/keymaps/i386/qwerty/
+cd $RPM_BUILD_ROOT/lib/kbd/keymaps/i386/qwerty/
+ln -sf ru.map.gz ru-cs.map.gz
+ln -sf ru.map.gz ru-lcls.map.gz
+ln -sf ru.map.gz ru-rcrs.map.gz
+ln -sf ru.map.gz ru-sc.map.gz
+ln -sf ru.map.gz ru-ss.map.gz
+ln -sf ru.map.gz ru-m.map.gz
+ln -sf ru.map.gz ru-rw.map.gz
+ln -sf ru.map.gz ru-lw.map.gz
+ln -sf ru.map.gz ru-rc.map.gz
+cd -
+
+install -dD $RPM_BUILD_ROOT%{_bindir}
+install -m 755 src/set-gconf-layout $RPM_BUILD_ROOT%{_bindir}
+
 desktop-file-install --vendor system --delete-original      \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications             \
    $RPM_BUILD_ROOT%{_datadir}/applications/system-config-keyboard.desktop
@@ -70,10 +89,12 @@ fi
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc COPYING
+%{_bindir}/set-gconf-layout
 %{_sbindir}/system-config-keyboard
 %{_bindir}/system-config-keyboard
 %{_datadir}/system-config-keyboard
 %{_datadir}/firstboot/modules/*
+/lib/kbd/keymaps/i386/qwerty/*.map.gz
 %attr(0644,root,root) %{_datadir}/applications/system-config-keyboard.desktop
 %attr(0644,root,root) %config %{_sysconfdir}/security/console.apps/system-config-keyboard
 %attr(0644,root,root) %config %{_sysconfdir}/pam.d/system-config-keyboard
@@ -82,6 +103,21 @@ fi
 
 
 %changelog
+* Thu Sep 30 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-2.3
+- added rctrl_toogle for switching layout
+
+* Wed Sep 29 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-2.2
+- update Russian(ru) translation
+
+* Wed Sep 22 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-2.1
+- rebuilt
+
+* Mon Mar 22 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-1.2
+- added lwin_toogle
+
+* Mon Mar 15 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-1.1
+- added new keyboard layouts for Russian
+
 * Mon Sep 14 2009 Lubomir Rintel <lkundrak@v3.sk> 1.3.1-1
 - New upstream release
 - Drop upstreamed patches

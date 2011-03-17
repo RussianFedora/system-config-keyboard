@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        2%{?dist}.3
+Release:        4%{?dist}.1
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -19,7 +19,6 @@ BuildRequires:  intltool
 
 Requires:       python
 Requires:       usermode >= 1.36
-Requires:       firstboot
 %ifnarch s390 s390x
 Requires:       pyxf86config
 %endif
@@ -103,6 +102,15 @@ fi
 
 
 %changelog
+* Fri Mar 18 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-4.1
+- rebuilt
+
+* Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Fri Oct 22 2010 Bill Nottingham <notting@redhat.com> - 1.3.1-3 
+- Drop firstboot requirement (#629456) 
+
 * Thu Sep 30 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-2.3
 - added rctrl_toogle for switching layout
 

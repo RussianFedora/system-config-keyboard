@@ -3,15 +3,17 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        2%{?dist}.3
+Release:        3.el6.1.R
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
 License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        https://fedorahosted.org/releases/s/y/system-config-keyboard/%{name}-%{version}.tar.gz
-Patch0:		%{name}-1.3.1-layouts.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch0:         system-config-keyboard-translation_#553225.patch
+Patch1:         system-config-keyboard-1.3.1-rhbz#606820.patch
+Patch2:		system-config-keyboard-1.3.1-layouts-el.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -34,8 +36,9 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
-%patch0 -p1 -b .layouts
-
+%patch0 -p0 -b .translation_#553225
+%patch1 -p1 -b .rhbz#606820
+%patch2 -p1 -b .layouts
 
 %build
 make
@@ -103,20 +106,26 @@ fi
 
 
 %changelog
-* Thu Sep 30 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-2.3
-- added rctrl_toogle for switching layout
-
-* Wed Sep 29 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-2.2
-- update Russian(ru) translation
-
-* Wed Sep 22 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-2.1
-- rebuilt
-
-* Mon Mar 22 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-1.2
-- added lwin_toogle
-
-* Mon Mar 15 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-1.1
+* Tue Mar 29 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-3.1
+- swap ru,us to us,ru
 - added new keyboard layouts for Russian
+
+* Mon Jul 19 2010 Thomas Woerner <twoerner@redhat.com> 1.3.1-3
+- dropped
+    ar-azerty, ar-azerty-digits, ar-digits, ar-qwerty, ar-qwerty-digits,
+    ben, ben-probhat, dev, guj, gur, ie, ro-cedilla, ro-std, ro-std-cedilla,
+    tj, tml-inscript and tml-uni
+  from keyboard layouts because of missing kbd maps (rhbz#606820)
+
+* Tue Jun 29 2010 Thomas Woerner <twoerner@redhat.com> 1.3.1-2.1
+- more translation updates: ar, ast, cs, el, hu, id, kn, mai, pl, sv, ta, uk
+  (rhbz#553225)
+
+* Tue Jun 29 2010 Thomas Woerner <twoerner@redhat.com> 1.3.1-2
+- translation updates: bn_IN, gu, ko, ml, ta (rhbz#553225)
+
+* Mon Nov 30 2009 Dennis Gregorovic <dgregor@redhat.com> - 1.3.1-1.1
+- Rebuilt for RHEL 6
 
 * Mon Sep 14 2009 Lubomir Rintel <lkundrak@v3.sk> 1.3.1-1
 - New upstream release

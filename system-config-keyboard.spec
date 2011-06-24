@@ -3,14 +3,15 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        4%{?dist}.1
+Release:        5%{?dist}.1
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
 License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        https://fedorahosted.org/releases/s/y/system-config-keyboard/%{name}-%{version}.tar.gz
-Patch0:		%{name}-1.3.1-layouts.patch
+Patch0:         s-c-keyboard-do_not_remove_the_OK_button.patch
+Patch1:         %{name}-1.3.1-layouts.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -19,6 +20,7 @@ BuildRequires:  intltool
 
 Requires:       python
 Requires:       usermode >= 1.36
+Requires:       dbus-python
 %ifnarch s390 s390x
 Requires:       pyxf86config
 %endif
@@ -33,7 +35,8 @@ the user to change the default keyboard of the system.
 
 %prep
 %setup -q
-%patch0 -p1 -b .layouts
+%patch0 -p1
+%patch1 -p1 -b .layouts
 
 
 %build
@@ -102,6 +105,11 @@ fi
 
 
 %changelog
+* Fri Jun 24 2001 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-5.1
+- Apply patches from itamarjp, landgraf, mschwendt to fix:
+  - Needs pyhon-dbus: https://bugzilla.redhat.com/show_bug.cgi?id=708631
+  - Missing OK button: https://bugzilla.redhat.com/show_bug.cgi?id=646041
+
 * Fri Mar 18 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-4.1
 - rebuilt
 

@@ -105,7 +105,7 @@ fi
 
 
 %changelog
-* Fri Jun 24 2001 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-5.1
+* Fri Jun 24 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-5.1
 - Apply patches from itamarjp, landgraf, mschwendt to fix:
   - Needs pyhon-dbus: https://bugzilla.redhat.com/show_bug.cgi?id=708631
   - Missing OK button: https://bugzilla.redhat.com/show_bug.cgi?id=646041

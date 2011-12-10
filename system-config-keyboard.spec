@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        5%{?dist}.1.R
+Release:        6%{?dist}.R
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -11,7 +11,8 @@ License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        https://fedorahosted.org/releases/s/y/system-config-keyboard/%{name}-%{version}.tar.gz
 Patch0:         s-c-keyboard-do_not_remove_the_OK_button.patch
-Patch1:         %{name}-1.3.1-layouts.patch
+Patch1:         sck-1.3.1-no-pyxf86config.patch
+Patch99:        %{name}-1.3.1-layouts.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -21,9 +22,6 @@ BuildRequires:  intltool
 Requires:       python
 Requires:       usermode >= 1.36
 Requires:       dbus-python
-%ifnarch s390 s390x
-Requires:       pyxf86config
-%endif
 
 Obsoletes:      kbdconfig
 Obsoletes:      redhat-config-keyboard
@@ -36,7 +34,8 @@ the user to change the default keyboard of the system.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1 -b .layouts
+%patch1 -p1
+%patch99 -p1 -b .layouts
 
 
 %build
@@ -105,6 +104,9 @@ fi
 
 
 %changelog
+* Sat Dec 10 2011 Arkady L. Shane <ashejn@russianfedora.ru> - 1.3.1-6.R
+- Drop keyboard_backend.py and un-Require pyxf86config (#758709)
+
 * Fri Jun 24 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-5.1.R
 - Apply patches from itamarjp, landgraf, mschwendt to fix:
   - Needs pyhon-dbus: https://bugzilla.redhat.com/show_bug.cgi?id=708631

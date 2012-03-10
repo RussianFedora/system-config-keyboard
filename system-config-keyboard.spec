@@ -38,6 +38,9 @@ License:        GPLv2+
 Requires:       python
 Requires:       dbus-python
 
+%description base
+Base components of system-config-keyboard.
+
 
 %prep
 %setup -q

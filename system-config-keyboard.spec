@@ -40,6 +40,9 @@ Requires:       dbus-python
 Requires:       pyxf86config
 %endif
 
+%description base
+Base components of system-config-keyboard.
+
 
 %prep
 %setup -q

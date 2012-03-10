@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        5%{?dist}.1.R
+Release:        8%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -11,33 +11,39 @@ License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        https://fedorahosted.org/releases/s/y/system-config-keyboard/%{name}-%{version}.tar.gz
 Patch0:         s-c-keyboard-do_not_remove_the_OK_button.patch
-Patch1:         %{name}-1.3.1-layouts.patch
+Patch1:         sck-1.3.1-no-pyxf86config.patch
+Patch2:         %{name}-1.3.1-layouts.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  intltool
 
-Requires:       python
+Requires:       system-config-keyboard-base = %{version}-%{release}
 Requires:       usermode >= 1.36
-Requires:       dbus-python
-%ifnarch s390 s390x
-Requires:       pyxf86config
-%endif
 
 Obsoletes:      kbdconfig
 Obsoletes:      redhat-config-keyboard
+
 
 %description
 system-config-keyboard is a graphical user interface that allows 
 the user to change the default keyboard of the system.
 
 
+%package base
+Summary:        system-config-keyboard base components
+Group:          System Environment/Base
+License:        GPLv2+
+Requires:       python
+Requires:       dbus-python
+
+
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1 -b .layouts
-
+%patch1 -p1
+%patch2 -p1 -b .layouts
 
 %build
 make
@@ -101,10 +107,21 @@ fi
 %attr(0644,root,root) %config %{_sysconfdir}/security/console.apps/system-config-keyboard
 %attr(0644,root,root) %config %{_sysconfdir}/pam.d/system-config-keyboard
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
+
+
+%files base -f %{name}.lang
+%defattr(-,root,root)
+%doc COPYING
 %{python_sitelib}/system_config_keyboard
 
 
 %changelog
+* Sat Mar 10 2012 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-8.R
+- Drop keyboard_backend.py and un-Require pyxf86config (#758709)
+
+* Sat Mar 10 2012 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-6.R
+- split out base components into base sub package (rhbz#791332)
+
 * Fri Jun 24 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-5.1.R
 - Apply patches from itamarjp, landgraf, mschwendt to fix:
   - Needs pyhon-dbus: https://bugzilla.redhat.com/show_bug.cgi?id=708631

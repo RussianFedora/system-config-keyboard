@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        8%{?dist}
+Release:        8.1%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -62,6 +62,7 @@ ln -sf ru.map.gz ru-cs.map.gz
 ln -sf ru.map.gz ru-lcls.map.gz
 ln -sf ru.map.gz ru-rcrs.map.gz
 ln -sf ru.map.gz ru-sc.map.gz
+ln -sf ru.map.gz ru-c.map.gz
 ln -sf ru.map.gz ru-ss.map.gz
 ln -sf ru.map.gz ru-m.map.gz
 ln -sf ru.map.gz ru-rw.map.gz
@@ -119,6 +120,9 @@ fi
 
 
 %changelog
+* Sat May 12 2012 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-8.1.R
+- added Caps toggle
+
 * Sat Mar 10 2012 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-8.R
 - Drop keyboard_backend.py and un-Require pyxf86config (#758709)
 

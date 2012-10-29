@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        8.1%{?dist}
+Release:        9%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -120,6 +120,9 @@ fi
 
 
 %changelog
+* Sat May 12 2012 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-9.R
+- rebuilt for RFRemix 18
+
 * Sat May 12 2012 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-8.1.R
 - added Caps toggle
 

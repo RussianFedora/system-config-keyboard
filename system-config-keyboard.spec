@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        9%{?dist}
+Release:        9.0%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base

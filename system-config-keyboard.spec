@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        9.0%{?dist}
+Release:        11%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -20,6 +20,7 @@ BuildRequires:  gettext
 BuildRequires:  intltool
 
 Requires:       system-config-keyboard-base = %{version}-%{release}
+Requires:       newt-python
 Requires:       usermode >= 1.36
 
 Obsoletes:      kbdconfig
@@ -98,13 +99,13 @@ if [ -x /usr/bin/gtk-update-icon-cache ]; then
 fi
 
 
-%files -f %{name}.lang
+%files
 %defattr(-,root,root)
-%doc COPYING
 %{_bindir}/set-gconf-layout
 %{_sbindir}/system-config-keyboard
 %{_bindir}/system-config-keyboard
 %{_datadir}/system-config-keyboard
+%attr(0755,root,root) %dir %{_datadir}/firstboot/modules
 %{_datadir}/firstboot/modules/*
 /lib/kbd/keymaps/i386/qwerty/*.map.gz
 %attr(0644,root,root) %{_datadir}/applications/system-config-keyboard.desktop
@@ -120,6 +121,10 @@ fi
 
 
 %changelog
+* Tue Apr  9 2013 Arkady L. Shane <ashejn@russianfedora.ru> - 1.3.1-11.R
+- added BR: newt-python
+- configure also MATE via mateconftool
+
 * Sat May 12 2012 Arkady L. Shane <ashejn@yandex-team.ru> - 1.3.1-9.R
 - rebuilt for RFRemix 18
 

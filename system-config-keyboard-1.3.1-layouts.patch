@@ -1,6 +1,6 @@
 diff -urN system-config-keyboard-1.3.1.orig/lib/keyboard_models.py system-config-keyboard-1.3.1/lib/keyboard_models.py
---- system-config-keyboard-1.3.1.orig/lib/keyboard_models.py	2012-05-12 13:52:50.575088149 +0400
-+++ system-config-keyboard-1.3.1/lib/keyboard_models.py	2012-05-12 13:54:13.412005288 +0400
+--- system-config-keyboard-1.3.1.orig/lib/keyboard_models.py	2013-04-09 14:46:07.369239031 +0400
++++ system-config-keyboard-1.3.1/lib/keyboard_models.py	2013-04-09 14:46:21.979289476 +0400
 @@ -207,7 +207,17 @@
              'ro-std-cedilla'                  : [_('keyboard|Romanian Standard Cedilla'), 'ro', 'pc105', 'std_cedilla', ''],
              # Translators: the word before the bar is just context and
@@ -30,8 +30,8 @@ diff -urN system-config-keyboard-1.3.1.orig/lib/keyboard_models.py system-config
              # doesn't need to be translated. Only after will be translated.
              'us-acentos'              : [_('keyboard|U.S. International'), 'us', 'pc105', 'intl', ''],
 diff -urN system-config-keyboard-1.3.1.orig/lib/keyboard.py system-config-keyboard-1.3.1/lib/keyboard.py
---- system-config-keyboard-1.3.1.orig/lib/keyboard.py	2012-05-12 13:52:50.575088149 +0400
-+++ system-config-keyboard-1.3.1/lib/keyboard.py	2012-05-12 13:55:13.011936183 +0400
+--- system-config-keyboard-1.3.1.orig/lib/keyboard.py	2013-04-09 14:46:07.369239031 +0400
++++ system-config-keyboard-1.3.1/lib/keyboard.py	2013-04-09 14:46:21.979289476 +0400
 @@ -79,7 +79,24 @@
      def set(self, keytable):
          if self.type != "Serial":
@@ -81,8 +81,8 @@ diff -urN system-config-keyboard-1.3.1.orig/lib/keyboard.py system-config-keyboa
          args = ""
          keyboardtype = self._var("KEYBOARDTYPE")
 diff -urN system-config-keyboard-1.3.1.orig/po/ru.po system-config-keyboard-1.3.1/po/ru.po
---- system-config-keyboard-1.3.1.orig/po/ru.po	2012-05-12 13:52:50.578088146 +0400
-+++ system-config-keyboard-1.3.1/po/ru.po	2012-05-12 13:57:36.708761661 +0400
+--- system-config-keyboard-1.3.1.orig/po/ru.po	2013-04-09 14:46:07.373239045 +0400
++++ system-config-keyboard-1.3.1/po/ru.po	2013-04-09 14:46:21.980289479 +0400
 @@ -407,97 +407,138 @@
  
  #. Translators: the word before the bar is just context and
@@ -241,8 +241,8 @@ diff -urN system-config-keyboard-1.3.1.orig/po/ru.po system-config-keyboard-1.3.
  
 diff -urN system-config-keyboard-1.3.1.orig/src/set-gconf-layout system-config-keyboard-1.3.1/src/set-gconf-layout
 --- system-config-keyboard-1.3.1.orig/src/set-gconf-layout	1970-01-01 03:00:00.000000000 +0300
-+++ system-config-keyboard-1.3.1/src/set-gconf-layout	2012-05-12 13:53:05.484074789 +0400
-@@ -0,0 +1,33 @@
++++ system-config-keyboard-1.3.1/src/set-gconf-layout	2013-04-09 14:56:17.331089607 +0400
+@@ -0,0 +1,45 @@
 +#!/bin/sh
 +
 +# This script push to GConf layouts settings as
@@ -274,5 +274,17 @@ diff -urN system-config-keyboard-1.3.1.orig/src/set-gconf-layout system-config-k
 +        LAYOUT_OPT=$(echo $OPTIONS | sed 's!grp:!grp\tgrp:!g;s!grp_led:!grp\tgrp_led:!g')
 +        /usr/bin/gconftool-2 --direct --config-source=xml:readwrite:/etc/gconf/gconf.xml.defaults \
 +            -s -t list --list-type=string /desktop/gnome/peripherals/keyboard/kbd/options "[$LAYOUT_OPT]" > /dev/null
++    fi
++fi
++
++if [ -x /usr/bin/mateconftool-2 ]; then
++    /usr/bin/mateconftool-2 --direct --config-source=xml:readwrite:/etc/mateconf/mateconf.xml.defaults \
++        -s -t list --list-type=string /desktop/mate/peripherals/keyboard/kbd/layouts "[$LAYOUT]"
++
++    if [ -f /etc/sysconfig/keyboard ]; then
++        . /etc/sysconfig/keyboard
++        LAYOUT_OPT=$(echo $OPTIONS | sed 's!grp:!grp\tgrp:!g;s!grp_led:!grp\tgrp_led:!g')
++        /usr/bin/mateconftool-2 --direct --config-source=xml:readwrite:/etc/mateconf/mateconf.xml.defaults \
++            -s -t list --list-type=string /desktop/mate/peripherals/keyboard/kbd/options "[$LAYOUT_OPT]" > /dev/null
 +    fi
 +fi

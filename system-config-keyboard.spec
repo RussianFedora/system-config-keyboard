@@ -3,16 +3,18 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
 License:        GPLv2+
 URL:            https://fedorahosted.org/system-config-keyboard/
 Source0:        https://fedorahosted.org/releases/s/y/system-config-keyboard/%{name}-%{version}.tar.gz
-Patch0:         s-c-keyboard-do_not_remove_the_OK_button.patch
-Patch1:         sck-1.3.1-no-pyxf86config.patch
-Patch2:         %{name}-1.3.1-layouts.patch
+Patch0:         system-config-keyboard-1.3.1-do_not_remove_the_OK_button.patch
+Patch1:         system-config-keyboard-1.3.1-no-pyxf86config.patch
+Patch2:         system-config-keyboard-1.3.1-pkexec.patch
+Patch3:         system-config-keyboard-1.3.1-manpage.patch
+Patch9:         %{name}-1.3.1-layouts.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -22,6 +24,7 @@ BuildRequires:  intltool
 Requires:       system-config-keyboard-base = %{version}-%{release}
 Requires:       newt-python
 Requires:       usermode >= 1.36
+Requires:       polkit
 
 Obsoletes:      kbdconfig
 Obsoletes:      redhat-config-keyboard
@@ -45,9 +48,11 @@ Base components of system-config-keyboard.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1 -b .layouts
+%patch0 -p1 -b .do_not_remove_the_OK_button
+%patch1 -p1 -b .no-pyxf86config
+%patch2 -p1 -b .pkexec
+%patch3 -p1 -b .manpage
+%patch9 -p1 -b .layouts
 
 %build
 make
@@ -109,9 +114,9 @@ fi
 %{_datadir}/firstboot/modules/*
 /lib/kbd/keymaps/i386/qwerty/*.map.gz
 %attr(0644,root,root) %{_datadir}/applications/system-config-keyboard.desktop
-%attr(0644,root,root) %config %{_sysconfdir}/security/console.apps/system-config-keyboard
-%attr(0644,root,root) %config %{_sysconfdir}/pam.d/system-config-keyboard
+%attr(0644,root,root) %{_datadir}/polkit-1/actions/org.fedoraproject.config.keyboard.policy
 %attr(0644,root,root) %{_datadir}/icons/hicolor/48x48/apps/system-config-keyboard.png
+%{_datadir}/man/man*/system-config-keyboard.*
 
 
 %files base -f %{name}.lang
@@ -121,6 +126,11 @@ fi
 
 
 %changelog
+* Thu Apr 18 2013 Nils Philippsen <nils@redhat.com> - 1.3.1-12.R
+- use consistent names for patches, create backup files
+- use polkit/pkexec instead of consolehelper
+- add man page
+
 * Tue Apr  9 2013 Arkady L. Shane <ashejn@russianfedora.ru> - 1.3.1-11.R
 - added BR: newt-python
 - configure also MATE via mateconftool

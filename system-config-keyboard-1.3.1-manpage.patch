@@ -1,0 +1,46 @@
+diff -up system-config-keyboard-1.3.1/Makefile.manpage system-config-keyboard-1.3.1/Makefile
+--- system-config-keyboard-1.3.1/Makefile.manpage	2013-04-18 15:20:55.703557400 +0200
++++ system-config-keyboard-1.3.1/Makefile	2013-04-18 15:45:07.640959544 +0200
+@@ -41,6 +41,8 @@ install: all
+ 	mkdir -p $(DESTDIR)$(PKGDATADIR)
+ 	mkdir -p $(DESTDIR)$(POLKITDIR)
+ 	mkdir -p $(DESTDIR)$(PKGDATADIR)/pixmaps
++	mkdir -p $(DESTDIR)$(MANDIR)/man1
++	mkdir -p $(DESTDIR)$(MANDIR)/man8
+ 	mkdir -p $(DESTDIR)/usr/share/applications
+ 	mkdir -p $(DESTDIR)/usr/share/firstboot
+ 	mkdir -p $(DESTDIR)/usr/share/firstboot/modules
+@@ -53,6 +55,8 @@ install: all
+ 	install -m 644 $(POLKITFILE) $(DESTDIR)$(POLKITDIR)
+ 	install -m 644 pixmaps/*.png $(DESTDIR)$(PKGDATADIR)/pixmaps
+ 	install -m 644 pixmaps/${PKGNAME}.png $(DESTDIR)/usr/share/icons/hicolor/48x48/apps
++	install -m 644 $(PKGNAME).man $(DESTDIR)$(MANDIR)/man8/$(PKGNAME).8
++	ln -sf ../man8/$(PKGNAME).8 $(DESTDIR)$(MANDIR)/man1/$(PKGNAME).1
+ 	install -m 644 ${PKGNAME}.desktop $(DESTDIR)/usr/share/applications/${PKGNAME}.desktop
+ 	ln -sf $(PKGDATADIR)/keyboard_gui.py $(DESTDIR)/usr/share/firstboot/modules/keyboard.py 
+ 	cd po && for i in *.mo; do mkdir -p $(DESTDIR)/usr/share/locale/$$(echo $$i |sed s/.mo//)/LC_MESSAGES/; install -m 644 $$i $(DESTDIR)/usr/share/locale/$$(echo $$i |sed s/.mo//)/LC_MESSAGES/system-config-keyboard.mo || exit 1; done
+diff -up system-config-keyboard-1.3.1/system-config-keyboard.man.manpage system-config-keyboard-1.3.1/system-config-keyboard.man
+--- system-config-keyboard-1.3.1/system-config-keyboard.man.manpage	2013-04-18 15:40:46.735310437 +0200
++++ system-config-keyboard-1.3.1/system-config-keyboard.man	2013-04-18 15:41:44.696454084 +0200
+@@ -0,0 +1,21 @@
++.TH "SYSTEM CONFIG KEYBOARD" "8" "" "" ""
++.SH "NAME"
++system\-config\-keyboard \- configure the keyboard layout of the system
++.SH "SYNOPSIS"
++.B system\-config\-keyboard
++[\fI\-\-help\fR]
++[\fI\-\-noui\fR]
++[\fI\-\-text\fR]
++[\fI<keyboardtype>\fR]
++.SH "DESCRIPTION"
++\fBsystem\-config\-keyboard\fR is a graphical user interface that allows
++the user to change the default keyboard of the system.
++.TP 
++\fB\-\-help\fR
++Display a short help message and list of keyboard types.
++.TP 
++\fB\-\-noui\fR
++Run in command line mode.
++.TP 
++\fB\-\-text\fR
++Run in text interface mode.

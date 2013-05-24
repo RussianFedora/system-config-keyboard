@@ -75,8 +75,8 @@ diff -up system-config-keyboard-1.3.1/org.fedoraproject.config.keyboard.policy.p
 + <vendor_url>http://fedoraproject.org/wiki/SystemConfig/keyboard</vendor_url>
 +
 + <action id="org.fedoraproject.config.keyboard.pkexec.run">
-+    <description>Run System Config Keyboard</_description>
-+    <message>Authentication is required to run system-config-keyboard</_message>
++    <description>Run System Config Keyboard</description>
++    <message>Authentication is required to run system-config-keyboard</message>
 +    <icon_name>system-config-keyboard</icon_name>
 +    <defaults>
 +     <allow_any>no</allow_any>

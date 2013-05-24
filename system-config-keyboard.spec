@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -126,6 +126,9 @@ fi
 
 
 %changelog
+* Mon May 13 2013 Nils Philippsen <nils@redhat.com> - 1.3.1-13.R
+- fix syntax errors in polkit policy file
+
 * Thu Apr 18 2013 Nils Philippsen <nils@redhat.com> - 1.3.1-12.R
 - use consistent names for patches, create backup files
 - use polkit/pkexec instead of consolehelper

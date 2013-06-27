@@ -3,7 +3,7 @@
 
 Name:           system-config-keyboard
 Version:        1.3.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A graphical interface for modifying the keyboard
 
 Group:          System Environment/Base
@@ -14,6 +14,7 @@ Patch0:         system-config-keyboard-1.3.1-do_not_remove_the_OK_button.patch
 Patch1:         system-config-keyboard-1.3.1-no-pyxf86config.patch
 Patch2:         system-config-keyboard-1.3.1-pkexec.patch
 Patch3:         system-config-keyboard-1.3.1-manpage.patch
+Patch4:         system-config-keyboard-1.3.1-use_systemd_localed_config.patch
 Patch9:         %{name}-1.3.1-layouts.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -52,6 +53,7 @@ Base components of system-config-keyboard.
 %patch1 -p1 -b .no-pyxf86config
 %patch2 -p1 -b .pkexec
 %patch3 -p1 -b .manpage
+%patch4 -p1 -b .use_systemd_localed_config
 %patch9 -p1 -b .layouts
 
 %build
@@ -126,6 +128,9 @@ fi
 
 
 %changelog
+* Thu Jun 06 2013 Adam Williamson <awilliam@redhat.com> - 1.3.1-14
+- localed_config.patch: work with localed (from vpodzime)
+
 * Mon May 13 2013 Nils Philippsen <nils@redhat.com> - 1.3.1-13.R
 - fix syntax errors in polkit policy file
 
